@@ -2,7 +2,7 @@
 # for i in range(num):
 #     print(i)
 # range(i, j, k) i=start point, j=maximum point k=increment amt
-# sum = 0
+# sum = 0 by default increment is 1 if its not specified
 # for i in range(0, 20, 2):
 #     sum = sum + i
 #     print(f"i = {i}")
