@@ -13,11 +13,13 @@ specialList = {17: [1.6, 2.45], 42: [11.6, 19.4], 101: [0.123, 4.89]}
 # for key in specialList.keys():
 #     #printed value associated to that key
 #     print(specialList[key])
-
+#Prints the value associated with each key in the dictionary as a list
 # print(specialList.values())
 # for value in specialList.values():
 #     print(value)
 
+#Output of expression below ([(17, [1.6, 2.45]), (42, [11.6, 19.4]), (101, [0.123, 4.89])])
+#Item outputs the key and key value together as a group in a list
 # print(specialList.items())
 # for item in specialList.items():
 #     #Return key value of the tupple
