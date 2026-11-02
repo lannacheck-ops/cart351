@@ -20,9 +20,16 @@
         </form>
     </div>
     <div class="images-container">
-        {%if have_results%}
-        <p>{{description}}</p>
-        <img src={{imgPath}} />
+        {%if images%}
+        <ul>
+            <!-- JINJA syntax for loop-->
+            {% for singleImg in images %}
+            <!-- output the item-->
+            <img src={{singleImg}} />
+            <!-- close the for loop-->
+            {% endfor %}
+        </ul>
+
         {%endif %}
     </div>
 </section>

@@ -123,3 +123,8 @@ fieldset {
 .images-container {
     padding: 10px;
 }
+
+.images-container img {
+    width: 40%;
+    padding-left: 10px;
+}
