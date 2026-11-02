@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="search">
+    <div class="formContainer">
+        <!--form done using more current tags... -->
+        <form id="searchForm" action="{{url_for('getSearchCriteria_adv')}}" method="post">
+            <!-- group the related elements in a form -->
+            <!-- <h3>WELCOME! PLEASE SEARCH BELOW </h3> -->
+            <fieldset>
+                <p>
+                    <label>nasa api search:</label>
+                    <input type="text" size="24" maxlength="40" name="adv_search_query" required>
+                </p>
+
+                <p>
+                    <label></label>
+                    <input id="submitSearch" type="submit" name="submit" value="submit search" id=buttonS />
+                </p>
+            </fieldset>
+        </form>
+    </div>
+    <div class="images-container">
+        {%if have_results%}
+        <p>{{description}}</p>
+        <img src={{imgPath}} />
+        {%endif %}
+    </div>
+</section>
+
+{% endblock %}

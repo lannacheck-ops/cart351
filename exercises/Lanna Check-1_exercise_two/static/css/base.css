@@ -119,3 +119,7 @@ fieldset {
     padding-left: 10px;
     /* padding-right: 10px; */
 }
+
+.images-container {
+    padding: 10px;
+}

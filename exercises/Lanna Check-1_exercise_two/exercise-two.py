@@ -40,14 +40,20 @@ def getSearchCriteria():
 
 #*************************************************
 # #Task-2: GET REQUEST
-# @app.route("/t2")
-# def t2():
-#     return render_template("t2.html")
+@app.route("/t2")
+def t2():
+    return render_template("t2.html")
 #*************************************************
-@app.route("/getSearchCriteria_adv")
+@app.route("/getSearchCriteria_adv", methods = ['POST', 'GET'])
 def getSearchCriteria_adv():
- #fill me in :
-#  return render_template("t2.html",images=encodedImageLinks)
+ #fill me in :  
+    base_url = 'https://images-api.nasa.gov/search'
+    app.logger.info(request.form["search_query"])
+    url_NASA_image = requests.get(base_url, params={'q': request.form["search_query"] , 'media_type': 'image'})
+    data = url_NASA_image.json()
+        # First element 
+    firstEl = data['collection']['items'][0]
+    return render_template("t2.html",images=encodedImageLinks)
     pass
 #*************************************************
 
