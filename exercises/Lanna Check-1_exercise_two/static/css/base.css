@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+
+}
+
+h2 {
+
+    font-size: 32px;
+    padding: 5px;
+    background-color: rgb(14, 181, 232);
+    color: rgb(255, 255, 255);
+}
+
+nav {
+    padding-bottom: 5px;
+    background-color: rgb(14, 181, 232);
+}
+
+nav ul {
+    display: flex;
+    justify-content: right;
+
+}
+
+nav ul li {
+    width: 10%;
+    text-transform: uppercase;
+    text-decoration: none;
+    list-style-type: none;
+
+
+}
+
+nav li a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+main {
+    margin: 10px;
+    background-color: rgb(229, 236, 245);
+    min-height: calc(82vh);
+}
+
+footer {
+    background-color: rgb(14, 181, 232);
+    min-height: 5vh;
+    padding: 5px;
+    color: rgb(255, 255, 255);
+
+}
+
+/* Form Input */
+
+.search {
+    padding-top: 10px;
+    background-color: rgb(227, 234, 246);
+    padding-bottom: 10px;
+    min-height: 70vh;
+}
+
+label {
+    display: inline-block;
+    width: 30%;
+    margin-top: 1%;
+    text-transform: uppercase;
+}
+
+textarea {
+    margin-top: 10px;
+    width: 50%;
+    margin-left: 2%;
+}
+
+input {
+    margin-left: 2%;
+    width: 50%;
+}
+
+fieldset {
+    width: 75%;
+    color: #302e2e;
+    margin: 0 auto;
+    margin-top: 2%;
+    border: none;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+#submitSearch {
+    width: auto;
+    margin-top: 10px;
+}
+
+/* .search h3 {
+    padding: 5px;
+    text-align: center;
+    font-size: 24px;
+    color: rgb(191, 147, 189);
+} */
+
+#searchForm {
+    padding: 5px;
+    background-color: rgb(58, 188, 228);
+}
+
+.retrieve-data {
+    padding: 10px;
+    display: flex;
+}
+
+.retrieve-data img {
+    width: 40%;
+    padding-left: 10px;
+    /* padding-right: 10px; */
+}
