@@ -112,19 +112,30 @@ fieldset {
 .retrieve-data {
     padding: 10px;
     display: flex;
+    justify-content: center;
 }
 
 .retrieve-data img {
     width: 40%;
-    padding-left: 10px;
-    /* padding-right: 10px; */
+    padding-left: 20px;
+}
+
+.retrieve-data p {
+    align-self: center;
 }
 
 .images-container {
+    /* width: 90vw; */
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
     padding: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .images-container img {
-    width: 40%;
-    padding-left: 10px;
+    width: 90%;
+    height: auto;
+    border-radius: 10px;
 }

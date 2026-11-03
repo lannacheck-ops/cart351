@@ -17,17 +17,24 @@ def t1():
 @app.route("/getSearchCriteria", methods = ['POST', 'GET'])
 def getSearchCriteria():
     #fill me in :
-    #replace the empty space to be url encoded
+    # Stores the Nasa base search url
     base_url = 'https://images-api.nasa.gov/search'
     app.logger.info(request.form["search_query"])
+    # Request the url from the NASA API using the user's input as a query
     url_NASA_image = requests.get(base_url, params={'q': request.form["search_query"] , 'media_type': 'image'})
     app.logger.info('https://images-api.nasa.gov'+ 'q=' + request.form["search_query"] + 'media_type=image')
+    # Store data as a JSON file (a python dictionary)
     data = url_NASA_image.json()
     # First element app log
     # app.logger.info(data['collection']['items'][0])
+    # Get the first element in the items list
     firstEl = data['collection']['items'][0]
+    # Get the first image in the links list
     imgFromNasa = firstEl['links'][0]['href']
+    # Replace the empty space to with 20% to follow url syntax
+    imgFromNasa.replace(' ', '20%')
     app.logger.info(imgFromNasa)
+    # Get the description of the first element in the items list
     description = firstEl['data'][0]['description']
     app.logger.info(description)
     return render_template("t1.html",
@@ -44,18 +51,27 @@ def getSearchCriteria():
 def t2():
     return render_template("t2.html")
 #*************************************************
-encodedImageLinks = []
+
 @app.route("/getSearchCriteria_adv", methods = ['POST', 'GET'])
 def getSearchCriteria_adv():
  #fill me in :  
     base_url = 'https://images-api.nasa.gov/search'
     url_NASA_image = requests.get(base_url, params={'q': request.form["adv_search_query"] , 'media_type': 'image'})
     data = url_NASA_image.json()
-        # First element 
-    firstEl = data['collection']['items'][0]
-    singleImage = firstEl['links'][0]['href']
-    singleImage.replace(' ', '20%')
-    encodedImageLinks.append(singleImage)
+    # Stores the list of all the elements in the items list
+    allEl = data['collection']['items']
+    # Creates an empty array every time a search is made
+    encodedImageLinks = []
+    # app.logger.info(firstEl['links'])
+    # A for loop that iterates through the items list
+    for items in allEl:
+      # Gets the first image(href) in the links list for each element in the items list
+      singleImage = items['links'][0]['href']
+    #   app.logger.info(images['href'])   
+      singleImage.replace(' ', '20%')
+      # Appends the image to the array
+      encodedImageLinks.append(singleImage)
+   
     return render_template("t2.html",images=encodedImageLinks)
     pass
 #*************************************************

@@ -8,7 +8,7 @@
             <!-- <h3>WELCOME! PLEASE SEARCH BELOW </h3> -->
             <fieldset>
                 <p>
-                    <label>nasa api search:</label>
+                    <label>nasa api image search:</label>
                     <input type="text" size="24" maxlength="40" name="adv_search_query" required>
                 </p>
 
@@ -21,14 +21,10 @@
     </div>
     <div class="images-container">
         {%if images%}
-        <ul>
-            <!-- JINJA syntax for loop-->
-            {% for singleImg in images %}
-            <!-- output the item-->
-            <img src={{singleImg}} />
-            <!-- close the for loop-->
-            {% endfor %}
-        </ul>
+        <!--For loop that displays all the images in the encodedImagesLinks array-->
+        {% for singleImg in images %}
+        <img src={{singleImg}} />
+        {% endfor %}
 
         {%endif %}
     </div>
