@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/base.css') }}"
+    />
+    <title>STARBASE</title>
+  </head>
+  <h1>STARBASE</h1>
+  <h3 class="kata-title">STARBASE</h3>
+  <body>
+    <header>
+      <nav>
+        <a href="{{ url_for('homepage') }}">HOME</a>
+        <a href="{{ url_for('objectives') }}">OBJECTIVES</a>
+        <a href="{{ url_for('search') }}">RESEARCH</a>
+      </nav>
+    </header>
+
+    <main>{% block content %} {% endblock %}</main>
+
+    <footer>STARBASE // END OF TRANSMISSION</footer>
+  </body>
+</html>
