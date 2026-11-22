@@ -4,7 +4,7 @@ Today we saw everyone's presentations for mini project 1. All the ideas where ve
 
 I also really appreciated the feedback Aliyah and I received on our project, STARBASE. I really loved the idea of having a leaderboard to rank which players can complete the most assignments in a given amount of time. I think adding that sense of competition will make the game more enjoyable and also more fulfilling. However, I think it also adds a dark undertone to the game because STARBASE is essentially setting up a competitive system to overwork its employees, the players, meanwhile the company is the one gaining all the profits. 
 
-I think it adds to the storyline of the game and possibly make players realize that while they are mindlessly competing against each other, the higher ups in STARBSE sit back and watch as they do all the work.
+This could serve as a basis for the storyline of the game and it'll possibly make players realize that while they are mindlessly competing against each other, the higher ups in STARBSE sit back and watch as they do all the work.
 
 
 
