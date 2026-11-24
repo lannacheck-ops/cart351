@@ -7,6 +7,7 @@ from datetime import datetime
 
 import os
 
+
 format_string = "%Y-%m-%d"
 load_dotenv()  # Load variables from .env and .flaskenv
 db_name = os.getenv('DATABASE_NAME')
@@ -24,6 +25,10 @@ app = Flask(__name__)
 # set a config var
 app.config["MONGO_URI"] = uri
 app.secret_key = 'BAD_SECRET_KEY'
+
+UPLOAD_FOLDER = 'static/uploads' 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB limit
 
 mongo = PyMongo(app)
 
@@ -133,12 +138,21 @@ def viewResults():
     # result = mongo.db.plantRepo.find(
     #     {'$or':[{'owner_name':'Sarah'},{'owner_name':'Martha'}]}).sort("birthDate",1)
     #  Sort and limit the number of results
+    # result = mongo.db.plantRepo.find(
+    #     {'$or':[{'owner_name':'Sarah'},{'owner_name':'Martha'}]}).sort("birthDate",-1).limit(2)
+
+    # We specify a (0) if we do want to include a field that wouly by default be included (the id), and a 1 for those we want included
+    options = {'_id':0,'owner_name':1,'plant_name':1,'imagePath':1}
+    # result =  mongo.db.plantRepo.find({},options)
+
     result = mongo.db.plantRepo.find(
-        {'$or':[{'owner_name':'Sarah'},{'owner_name':'Martha'}]}).sort("birthDate",-1).limit(2)
-
-
-    print(result)
-    return render_template("viewResults.html",result=result)
+     {'$or':[{'owner_name':'Sarah'},{'owner_name':'Martha'}]},options).sort("birthDate",-1).limit(3)
+    # Count all the documents (returns a number)
+    # resultCount = mongo.db.plantRepo.count_documents({})
+    # Count all the docs with the owner name sarah
+    resultCount = mongo.db.plantRepo.count_documents({'owner_name':'Sarah'})
+    print(resultCount)
+    return render_template("viewResults.html", result = result, resultCount=resultCount)
 
 @app.route('/updateOne')
 def updateOne():
@@ -184,6 +198,36 @@ def updateMany():
             )
         return redirect(url_for("insertTest"))
      except Exception as e:
+        print(e)
+
+@app.route('/insertDynamic')
+def insertDynamic():
+  return render_template("insertPlantMongo.html")
+
+@app.route("/postPlantFormFetch",methods = ['POST'])
+def postPlantFormFetch():
+     #key is the same as in the form :)
+    uploadedfile = request.files['the_file']
+    #save file to uploads folder
+    filePath = os.path.join(app.config['UPLOAD_FOLDER'], uploadedfile.filename)
+    app.logger.info(filePath)
+    uploadedfile.save(filePath)
+    app.logger.info(uploadedfile.filename)
+
+    dataToMongo = {
+'owner_name': request.form['o_name'],
+'plant_name' : request.form['p_name'],
+'birthDate': datetime.strptime(request.form['a_date'], format_string),
+'geoLoc': request.form['plant-home'],
+'descript': request.form['a_descript'],
+'imagePath': f"uploads/{uploadedfile.filename}"
+}
+    try:
+        res = mongo.db.plantRepo.insert_one(dataToMongo)
+        #return the file name
+        return({"imagePath":filePath})
+    
+    except Exception as e:
         print(e)
 
 app.run(debug = True)
