@@ -230,5 +230,20 @@ def postPlantFormFetch():
     except Exception as e:
         print(e)
 
+@app.route('/viewAndSearchMongo')
+def viewAndSearchMongo():
+    return render_template("viewAndSearchMongo.html")
+
+@app.route('/passToFlask')
+def passToFlask():
+    searchField = request.args['a_search']
+    try:
+        results = mongo.db.plantRepo.find({"owner_name": searchField})
+          #return the file name
+        #return ({"test-response": "success"})
+        return ({"test-response": results})
+    except Exception as e:
+        print(e)
+
 app.run(debug = True)
 
