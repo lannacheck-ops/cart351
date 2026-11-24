@@ -2,9 +2,12 @@ from flask import Flask,render_template,request,redirect, url_for,session
 # use flask_pymongo instead of  normal pymongo (simplifies integration)
 from flask_pymongo import PyMongo
 from dotenv import load_dotenv
+#import datetime
+from datetime import datetime 
 
 import os
 
+format_string = "%Y-%m-%d"
 load_dotenv()  # Load variables from .env and .flaskenv
 db_name = os.getenv('DATABASE_NAME')
 db_user = os.getenv('MONGODB_USERNAME')
@@ -37,18 +40,19 @@ def insertTest():
 # a route
 @app.route('/insertMany')
 def insertMany():
+  
     data = [
 {'owner_name': 'Sarah',
-'plant_name' : 'Snake Plant',
-'birthDate':'2002-06-12',
+'plant_name': 'Snake Plant',
+'birthDate':datetime.strptime("2002-06-12", format_string),
 'geoLoc': 'Montreal',
 'descript': 'Description for the plant',
 'imagePath': 'images/one.png'
 },
 {
 'owner_name': 'Sarah',
-'plant_name' :'Cactus',
-'birthDate' :'2005-06-13',
+'plant_name':'Cactus',
+'birthDate':datetime.strptime("2005-06-13", format_string),
 'geoLoc':'Toronto',
 'descript':'Description for the plant',
 'imagePath': 'images/seven.png'
@@ -56,16 +60,16 @@ def insertMany():
  
  {
 'owner_name': 'Sarah',
-'plant_name' : 'Agapanthus',
-'birthDate': '2003-03-19',
+'plant_name': 'Agapanthus',
+'birthDate': datetime.strptime("2003-03-19", format_string),
 'geoLoc': 'Halifax',
 'descript': 'Description for the plant',
 'imagePath': 'images/seventeen.png'
 },
  {
 'owner_name': 'Stephen',
-'plant_name' : 'Baby Rubber Plant',
-'birthDate ': '1999-07-18',
+'plant_name': 'Baby Rubber Plant',
+'birthDate ': datetime.strptime("1997-07-18", format_string),
 'geoLoc': 'Edinborough',
 'descript':'Description for the plant',
 'imagePath': 'images/ten.png'
@@ -73,17 +77,17 @@ def insertMany():
  
 {
 'owner_name': 'Stephen',
-'plant_name' : 'Dahlia',
-'birthDate' :'2000-05-06',
+'plant_name': 'Dahlia',
+'birthDate':datetime.strptime("2000-05-06", format_string),
 'geoLoc':'London',
 'descript':'Description for the plant',
 'imagePath': 'images/thirteen.png'
 },
  
 {
-'owner_name' : 'Harold',
-'plant_name' : 'Daphne',
-'birthDate': '2012-10-21',
+'owner_name': 'Harold',
+'plant_name': 'Daphne',
+'birthDate': datetime.strptime("2012-10-21", format_string),
 'geoLoc':'New York',
 'descript':'Description for the plant',
 'imagePath': 'images/three.png'
@@ -91,7 +95,7 @@ def insertMany():
 {
 'owner_name' : 'Martha',
 'plant_name' : 'Daylily',
-'birthDate' :'2017-08-21',
+'birthDate':datetime.strptime("2017-08-21", format_string),
 'geoLoc':'Paris',
 'descript':'Description for the plant',
 'imagePath': 'images/nine.png'
@@ -113,7 +117,26 @@ def testIds():
 # a route
 @app.route('/viewResults')
 def viewResults():
-    result = mongo.db.plantRepo.find()
+    # #  All results
+    # result = mongo.db.plantRepo.find()
+    startTime = datetime.strptime("2003-01-12", format_string)
+    # #  All results with birthdate greater than startTime
+    # result= mongo.db.plantRepo.find({'birthDate':{'$gt':startTime}})
+    endTime = datetime.strptime("2010-01-12", format_string)
+     # Results btwn startTime and endTime
+    # result = mongo.db.plantRepo.find(
+    #     {'$and':[{'birthDate':{'$gt':startTime}},{'birthDate':{'$lt':endTime}} ]})
+    # Results with ownernaem sarah or martha
+    # result = mongo.db.plantRepo.find(
+    #     {'$or':[{'owner_name':'Sarah'},{'owner_name':'Martha'} ]})
+    # # Here - we are sorting by creation date smaller-larger ... if we change to -1, then it would be the opposite direction.
+    # result = mongo.db.plantRepo.find(
+    #     {'$or':[{'owner_name':'Sarah'},{'owner_name':'Martha'}]}).sort("birthDate",1)
+    #  Sort and limit the number of results
+    result = mongo.db.plantRepo.find(
+        {'$or':[{'owner_name':'Sarah'},{'owner_name':'Martha'}]}).sort("birthDate",-1).limit(2)
+
+
     print(result)
     return render_template("viewResults.html",result=result)
 
@@ -164,5 +187,4 @@ def updateMany():
         print(e)
 
 app.run(debug = True)
-
 
